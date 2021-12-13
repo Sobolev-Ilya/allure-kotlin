@@ -30,15 +30,15 @@ class AnnotationUtilsTest {
     fun shouldExtractDefaultLabels() {
         val labels = getLabels(WithBddAnnotations::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple(EPIC_LABEL_NAME, "e1"),
-                Assertions.tuple(FEATURE_LABEL_NAME, "f1"),
-                Assertions.tuple(STORY_LABEL_NAME, "s1")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple(EPIC_LABEL_NAME, "e1"),
+                        Assertions.tuple(FEATURE_LABEL_NAME, "f1"),
+                        Assertions.tuple(STORY_LABEL_NAME, "s1")
+                )
     }
 
     @Epics(Epic("e1"), Epic("e2"))
@@ -48,23 +48,23 @@ class AnnotationUtilsTest {
     fun shouldExtractDirectRepeatableLabels() {
         val labels = getLabels(DirectRepeatableAnnotations::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple(EPIC_LABEL_NAME, "e1"),
-                Assertions.tuple(EPIC_LABEL_NAME, "e2")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple(EPIC_LABEL_NAME, "e1"),
+                        Assertions.tuple(EPIC_LABEL_NAME, "e2")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LabelAnnotation(name = "custom")
     internal annotation class Custom(val value: String)
@@ -76,22 +76,22 @@ class AnnotationUtilsTest {
     fun shouldExtractCustomAnnotations() {
         val labels = getLabels(CustomAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("custom", "Some")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("custom", "Some")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LabelAnnotation(name = "custom")
     internal annotation class CustomMultiValue(vararg val value: String)
@@ -103,23 +103,23 @@ class AnnotationUtilsTest {
     fun shouldSupportMultiValueAnnotations() {
         val labels = getLabels(CustomMultiValueAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("custom", "First"),
-                Assertions.tuple("custom", "Second")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("custom", "First"),
+                        Assertions.tuple("custom", "Second")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LabelAnnotation(name = "custom", value = "fixed")
     internal annotation class CustomFixed
@@ -131,28 +131,28 @@ class AnnotationUtilsTest {
     fun shouldSupportCustomFixedAnnotations() {
         val labels = getLabels(CustomFixedAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("custom", "fixed")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("custom", "fixed")
+                )
     }
 
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LabelAnnotations(
-        LabelAnnotation(name = "a", value = "a1"),
-        LabelAnnotation(name = "a", value = "a2"),
-        LabelAnnotation(name = "b", value = "b1"),
-        LabelAnnotation(name = "b", value = "b2")
+            LabelAnnotation(name = "a", value = "a1"),
+            LabelAnnotation(name = "a", value = "a2"),
+            LabelAnnotation(name = "b", value = "b1"),
+            LabelAnnotation(name = "b", value = "b2")
     )
     internal annotation class CustomMultiLabel
 
@@ -169,86 +169,86 @@ class AnnotationUtilsTest {
     fun shouldSupportCustomMultiLabelAnnotations() {
         val labels = getLabels(CustomMultiLabelAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("a", "a1"),
-                Assertions.tuple("a", "a2"),
-                Assertions.tuple("b", "b1"),
-                Assertions.tuple("b", "b2")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("a", "a1"),
+                        Assertions.tuple("a", "a2"),
+                        Assertions.tuple("b", "b1"),
+                        Assertions.tuple("b", "b2")
+                )
     }
 
     @io.qameta.allure.kotlin.Link(name = "LINK-1")
     @Links(
-        io.qameta.allure.kotlin.Link(
-            name = "LINK-2",
-            url = "https://example.org/link/2"
-        ),
-        io.qameta.allure.kotlin.Link(url = "https://example.org/some-custom-link")
+            io.qameta.allure.kotlin.Link(
+                    name = "LINK-2",
+                    url = "https://example.org/link/2"
+            ),
+            io.qameta.allure.kotlin.Link(url = "https://example.org/some-custom-link")
     )
     @TmsLink("TMS-1")
     @TmsLinks(
-        TmsLink("TMS-2"),
-        TmsLink("TMS-3")
+            TmsLink("TMS-2"),
+            TmsLink("TMS-3")
     )
     @Issue("ISSUE-1")
     @Issues(
-        Issue("ISSUE-2"),
-        Issue("ISSUE-3")
+            Issue("ISSUE-2"),
+            Issue("ISSUE-3")
     )
     internal inner class WithLinks
 
     @ResourceLock(
-        value = Resources.SYSTEM_PROPERTIES,
-        mode = ResourceAccessMode.READ_WRITE
+            value = Resources.SYSTEM_PROPERTIES,
+            mode = ResourceAccessMode.READ_WRITE
     )
     @SystemProperties(
-        SystemProperty(name = "allure.link.issue.pattern", value = "https://example.org/issue/{}"),
-        SystemProperty(name = "allure.link.tms.pattern", value = "https://example.org/tms/{}"),
-        SystemProperty(name = "allure.link.custom.pattern", value = "https://example.org/custom/{}")
+            SystemProperty(name = "allure.link.issue.pattern", value = "https://example.org/issue/{}"),
+            SystemProperty(name = "allure.link.tms.pattern", value = "https://example.org/tms/{}"),
+            SystemProperty(name = "allure.link.custom.pattern", value = "https://example.org/custom/{}")
     )
     @Test
     fun shouldExtractLinks() {
         Assertions.assertThat(getLinks(WithLinks::class.java))
-            .extracting(
-                function(Link::name),
-                function(Link::type),
-                function(Link::url)
-            )
-            .contains(
-                Assertions.tuple("LINK-1", "custom", "https://example.org/custom/LINK-1"),
-                Assertions.tuple("LINK-2", "custom", "https://example.org/link/2"),
-                Assertions.tuple("", "custom", "https://example.org/some-custom-link"),
-                Assertions.tuple("ISSUE-1", "issue", "https://example.org/issue/ISSUE-1"),
-                Assertions.tuple("ISSUE-2", "issue", "https://example.org/issue/ISSUE-2"),
-                Assertions.tuple("ISSUE-3", "issue", "https://example.org/issue/ISSUE-3"),
-                Assertions.tuple("TMS-1", "tms", "https://example.org/tms/TMS-1"),
-                Assertions.tuple("TMS-2", "tms", "https://example.org/tms/TMS-2"),
-                Assertions.tuple("TMS-3", "tms", "https://example.org/tms/TMS-3")
-            )
+                .extracting(
+                        function(Link::name),
+                        function(Link::type),
+                        function(Link::url)
+                )
+                .contains(
+                        Assertions.tuple("LINK-1", "custom", "https://example.org/custom/LINK-1"),
+                        Assertions.tuple("LINK-2", "custom", "https://example.org/link/2"),
+                        Assertions.tuple("", "custom", "https://example.org/some-custom-link"),
+                        Assertions.tuple("ISSUE-1", "issue", "https://example.org/issue/ISSUE-1"),
+                        Assertions.tuple("ISSUE-2", "issue", "https://example.org/issue/ISSUE-2"),
+                        Assertions.tuple("ISSUE-3", "issue", "https://example.org/issue/ISSUE-3"),
+                        Assertions.tuple("TMS-1", "tms", "https://example.org/tms/TMS-1"),
+                        Assertions.tuple("TMS-2", "tms", "https://example.org/tms/TMS-2"),
+                        Assertions.tuple("TMS-3", "tms", "https://example.org/tms/TMS-3")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LinkAnnotation
     internal annotation class CustomLink(val value: String = "")
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @LinkAnnotation(type = "issue")
     internal annotation class CustomIssue(val value: String)
@@ -259,31 +259,31 @@ class AnnotationUtilsTest {
     internal inner class WithCustomLink
 
     @ResourceLock(
-        value = Resources.SYSTEM_PROPERTIES,
-        mode = ResourceAccessMode.READ_WRITE
+            value = Resources.SYSTEM_PROPERTIES,
+            mode = ResourceAccessMode.READ_WRITE
     )
     @SystemProperties(
-        SystemProperty(name = "allure.link.custom.pattern", value = "https://example.org/custom/{}"),
-        SystemProperty(name = "allure.link.issue.pattern", value = "https://example.org/issue/{}")
+            SystemProperty(name = "allure.link.custom.pattern", value = "https://example.org/custom/{}"),
+            SystemProperty(name = "allure.link.issue.pattern", value = "https://example.org/issue/{}")
     )
     @Test
     fun shouldExtractCustomLinks() {
         Assertions.assertThat(getLinks(WithCustomLink::class.java))
-            .extracting<Any, Exception>(Link::url)
-            .containsOnly(
-                "https://example.org/custom/LINK-2",
-                "https://example.org/custom/LINK-1",
-                "https://example.org/issue/ISSUE-1"
-            )
+                .extracting<Any, Exception>(Link::url)
+                .containsOnly(
+                        "https://example.org/custom/LINK-2",
+                        "https://example.org/custom/LINK-1",
+                        "https://example.org/issue/ISSUE-1"
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @Feature("First")
     @Issue("1")
@@ -291,11 +291,11 @@ class AnnotationUtilsTest {
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @Feature("Second")
     @Issue("2")
@@ -303,11 +303,11 @@ class AnnotationUtilsTest {
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @FirstFeature
     @SecondFeature
@@ -321,24 +321,24 @@ class AnnotationUtilsTest {
     fun shouldSupportMultiFeature() {
         val labels = getLabels(WithMultiFeature::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("feature", "First"),
-                Assertions.tuple("feature", "Second"),
-                Assertions.tuple("story", "Other")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("feature", "First"),
+                        Assertions.tuple("feature", "Second"),
+                        Assertions.tuple("story", "Other")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
     @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.ANNOTATION_CLASS,
-        AnnotationTarget.CLASS
+            AnnotationTarget.FUNCTION,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER,
+            AnnotationTarget.ANNOTATION_CLASS,
+            AnnotationTarget.CLASS
     )
     @Recursive("second")
     @LabelAnnotation(name = "recursive")
@@ -351,14 +351,14 @@ class AnnotationUtilsTest {
     fun shouldExtractLabelsFromRecursiveAnnotations() {
         val labels = getLabels(WithRecurse::class.java)
         Assertions.assertThat(labels)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .contains(
-                Assertions.tuple("recursive", "first"),
-                Assertions.tuple("recursive", "second")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .contains(
+                        Assertions.tuple("recursive", "first"),
+                        Assertions.tuple("recursive", "second")
+                )
     }
 
     @Retention(AnnotationRetention.RUNTIME)
@@ -366,8 +366,8 @@ class AnnotationUtilsTest {
     internal annotation class Features {
         @Retention(AnnotationRetention.RUNTIME)
         @Target(
-            AnnotationTarget.ANNOTATION_CLASS,
-            AnnotationTarget.CLASS
+                AnnotationTarget.ANNOTATION_CLASS,
+                AnnotationTarget.CLASS
         )
         @Feature("A")
         @Owner("tester1")
@@ -375,11 +375,11 @@ class AnnotationUtilsTest {
         annotation class FeatureA {
             @Retention(AnnotationRetention.RUNTIME)
             @Target(
-                AnnotationTarget.FUNCTION,
-                AnnotationTarget.PROPERTY_GETTER,
-                AnnotationTarget.PROPERTY_SETTER,
-                AnnotationTarget.ANNOTATION_CLASS,
-                AnnotationTarget.CLASS
+                    AnnotationTarget.FUNCTION,
+                    AnnotationTarget.PROPERTY_GETTER,
+                    AnnotationTarget.PROPERTY_SETTER,
+                    AnnotationTarget.ANNOTATION_CLASS,
+                    AnnotationTarget.CLASS
             )
             @FeatureA
             @Story("s1")
@@ -388,8 +388,8 @@ class AnnotationUtilsTest {
 
         @Retention(AnnotationRetention.RUNTIME)
         @Target(
-            AnnotationTarget.ANNOTATION_CLASS,
-            AnnotationTarget.CLASS
+                AnnotationTarget.ANNOTATION_CLASS,
+                AnnotationTarget.CLASS
         )
         @Feature("B")
         @Owner("tester2")
@@ -397,11 +397,11 @@ class AnnotationUtilsTest {
         annotation class FeatureB {
             @Retention(AnnotationRetention.RUNTIME)
             @Target(
-                AnnotationTarget.FUNCTION,
-                AnnotationTarget.PROPERTY_GETTER,
-                AnnotationTarget.PROPERTY_SETTER,
-                AnnotationTarget.ANNOTATION_CLASS,
-                AnnotationTarget.CLASS
+                    AnnotationTarget.FUNCTION,
+                    AnnotationTarget.PROPERTY_GETTER,
+                    AnnotationTarget.PROPERTY_SETTER,
+                    AnnotationTarget.ANNOTATION_CLASS,
+                    AnnotationTarget.CLASS
             )
             @FeatureB
             @Story("s2")
@@ -423,40 +423,59 @@ class AnnotationUtilsTest {
     fun complexCase() {
         val labels1 = getLabels(Test1::class.java)
         Assertions.assertThat(labels1)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .containsExactlyInAnyOrder(
-                Assertions.tuple("feature", "A"),
-                Assertions.tuple("story", "s1"),
-                Assertions.tuple("owner", "tester1")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .containsExactlyInAnyOrder(
+                        Assertions.tuple("feature", "A"),
+                        Assertions.tuple("story", "s1"),
+                        Assertions.tuple("owner", "tester1")
+                )
         val labels2 = getLabels(Test2::class.java)
         Assertions.assertThat(labels2)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .containsExactlyInAnyOrder(
-                Assertions.tuple("feature", "B"),
-                Assertions.tuple("story", "s2"),
-                Assertions.tuple("owner", "tester2")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .containsExactlyInAnyOrder(
+                        Assertions.tuple("feature", "B"),
+                        Assertions.tuple("story", "s2"),
+                        Assertions.tuple("owner", "tester2")
+                )
         val labels3 = getLabels(Test3::class.java)
         Assertions.assertThat(labels3)
-            .extracting(
-                function(Label::name),
-                function(Label::value)
-            )
-            .containsExactlyInAnyOrder(
-                Assertions.tuple("feature", "A"),
-                Assertions.tuple("story", "s1"),
-                Assertions.tuple("owner", "tester1"),
-                Assertions.tuple("feature", "B"),
-                Assertions.tuple("story", "s2"),
-                Assertions.tuple("owner", "tester2")
-            )
+                .extracting(
+                        function(Label::name),
+                        function(Label::value)
+                )
+                .containsExactlyInAnyOrder(
+                        Assertions.tuple("feature", "A"),
+                        Assertions.tuple("story", "s1"),
+                        Assertions.tuple("owner", "tester1"),
+                        Assertions.tuple("feature", "B"),
+                        Assertions.tuple("story", "s2"),
+                        Assertions.tuple("owner", "tester2")
+                )
     }
+
+    @Test
+    fun superClassLabelsShouldPresents() {
+        Assertions.assertThat(getLabels(SubClassWithoutLabelAndLink::class.java))
+                .containsExactly(Label("feature", "super-class-feature"))
+    }
+
+    @Test
+    fun superClassLinksShouldPresents() {
+        Assertions.assertThat(getLinks(SubClassWithoutLabelAndLink::class.java))
+                .extracting(function(Link::url))
+                .containsExactlyInAnyOrder("https://example-url.com")
+    }
+
+    @Feature("super-class-feature")
+    @io.qameta.allure.kotlin.Link("someValue", "someName", "https://example-url.com")
+    abstract class SuperClassWithLabelAndLink
+
+    class SubClassWithoutLabelAndLink : SuperClassWithLabelAndLink()
 }
 
